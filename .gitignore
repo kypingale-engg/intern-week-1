@@ -1,0 +1,6 @@
+# Python virtual environment
+day-02/venv/
+
+# Python cache
+__pycache__/
+*.pyc
