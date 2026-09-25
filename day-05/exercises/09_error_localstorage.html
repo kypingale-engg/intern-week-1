@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Handling and Local Storage</title>
+</head>
+<body>
+
+    <h1>Local Storage Example</h1>
+
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button id="saveButton">Save Name</button>
+    <button id="loadButton">Load Name</button>
+    <button id="removeButton">Remove Name</button>
+
+    <p id="message"></p>
+
+    <script>
+        const nameInput = document.getElementById("nameInput");
+        const message = document.getElementById("message");
+
+        // Save data
+        document.getElementById("saveButton").addEventListener("click", function () {
+            try {
+                const name = nameInput.value.trim();
+
+                if (name === "") {
+                    throw new Error("Name cannot be empty.");
+                }
+
+                localStorage.setItem("userName", name);
+                message.textContent = "Name saved successfully!";
+            } catch (error) {
+                message.textContent = "Error: " + error.message;
+            }
+        });
+
+        // Load data
+        document.getElementById("loadButton").addEventListener("click", function () {
+            const name = localStorage.getItem("userName");
+
+            if (name) {
+                message.textContent = "Saved Name: " + name;
+            } else {
+                message.textContent = "No name found.";
+            }
+        });
+
+        // Remove data
+        document.getElementById("removeButton").addEventListener("click", function () {
+            localStorage.removeItem("userName");
+            message.textContent = "Name removed.";
+        });
+    </script>
+
+</body>
+</html>

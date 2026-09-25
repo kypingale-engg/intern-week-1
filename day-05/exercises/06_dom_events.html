@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM Events</title>
+</head>
+<body>
+
+    <h1 id="title">JavaScript DOM Example</h1>
+
+    <p id="message">Click the button to change this text.</p>
+
+    <button id="changeButton">Change Text</button>
+
+    <script>
+        // Select elements from the DOM
+        const title = document.getElementById("title");
+        const message = document.getElementById("message");
+        const button = document.getElementById("changeButton");
+
+        // Add click event
+        button.addEventListener("click", function () {
+            message.textContent = "Text changed successfully!";
+            title.textContent = "DOM Event Worked!";
+        });
+    </script>
+
+</body>
+</html>
