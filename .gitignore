@@ -1,5 +1,7 @@
-# Python virtual environment
+# Python virtual environments
 day-02/venv/
+day-03/venv/
+day-04/venv/
 
 # Python cache
 __pycache__/
