@@ -2,8 +2,23 @@
 day-02/venv/
 day-03/venv/
 day-04/venv/
-day-05/venv/
+
+# Day 6 virtual environment
+day-06/venv/
 
 # Python cache
 __pycache__/
 *.pyc
+
+# Node dependencies
+day-06/node_modules/
+day-06/react-basics/node_modules/
+
+# React build output
+day-06/react-basics/dist/
+
+# Generated JavaScript from TypeScript examples
+day-06/typescript-basics/*.js
+day-06/typescript-basics/*.js.map
+day-06/typescript-basics/*.d.ts
+day-06/typescript-basics/*.d.ts.map
