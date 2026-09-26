@@ -22,3 +22,6 @@ day-06/typescript-basics/*.js
 day-06/typescript-basics/*.js.map
 day-06/typescript-basics/*.d.ts
 day-06/typescript-basics/*.d.ts.map
+# Day 7 Next.js
+day-07/nextjs-basics/node_modules/
+day-07/nextjs-basics/.next/
