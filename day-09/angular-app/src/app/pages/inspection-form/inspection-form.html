@@ -1,0 +1,190 @@
+
+<div class="form-page">
+
+  <!-- Header -->
+  <header class="page-header">
+
+    <div>
+      <h1>New Inspection</h1>
+      <p>Record a facility inspection</p>
+    </div>
+
+    <a routerLink="/" class="dashboard-btn">
+      ← Dashboard
+    </a>
+
+  </header>
+
+  <!-- Form Card -->
+  <section class="form-card">
+
+    <form
+      [formGroup]="inspectionForm"
+      (ngSubmit)="submitInspection()"
+    >
+
+      <!-- Facility -->
+      <div class="form-group">
+
+        <label for="facility">
+          Facility
+        </label>
+
+        <select
+          id="facility"
+          formControlName="facility_id"
+        >
+          <option value="">
+            Select facility
+          </option>
+
+          <option
+            *ngFor="let facility of facilities"
+            [value]="facility.id"
+          >
+            {{ facility.name }}
+          </option>
+
+        </select>
+
+        <small
+          class="error-message"
+          *ngIf="
+            inspectionForm.get('facility_id')?.invalid &&
+            inspectionForm.get('facility_id')?.touched
+          "
+        >
+          Please select a facility.
+        </small>
+
+      </div>
+
+      <!-- Employee ID -->
+      <div class="form-group">
+
+        <label for="employee">
+          Employee ID
+        </label>
+
+        <input
+          id="employee"
+          type="number"
+          formControlName="employee_id"
+          placeholder="Enter employee ID"
+        />
+
+        <small
+          class="error-message"
+          *ngIf="
+            inspectionForm.get('employee_id')?.invalid &&
+            inspectionForm.get('employee_id')?.touched
+          "
+        >
+          Please enter a valid employee ID greater than 0.
+        </small>
+
+      </div>
+
+      <!-- Inspection Date -->
+      <div class="form-group">
+
+        <label for="date">
+          Inspection Date
+        </label>
+
+        <input
+          id="date"
+          type="date"
+          formControlName="inspection_date"
+        />
+
+        <small
+          class="error-message"
+          *ngIf="
+            inspectionForm.get('inspection_date')?.invalid &&
+            inspectionForm.get('inspection_date')?.touched
+          "
+        >
+          Please select an inspection date.
+        </small>
+
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+
+        <label for="status">
+          Status
+        </label>
+
+        <select
+          id="status"
+          formControlName="status"
+        >
+
+          <option value="">
+            Select status
+          </option>
+
+          <option value="Passed">
+            Passed
+          </option>
+
+          <option value="Needs Repair">
+            Needs Repair
+          </option>
+
+        </select>
+
+        <small
+          class="error-message"
+          *ngIf="
+            inspectionForm.get('status')?.invalid &&
+            inspectionForm.get('status')?.touched
+          "
+        >
+          Please select an inspection status.
+        </small>
+
+      </div>
+
+      <!-- Remarks -->
+      <div class="form-group">
+
+        <label for="remarks">
+          Remarks
+        </label>
+
+        <textarea
+          id="remarks"
+          rows="4"
+          formControlName="remarks"
+          placeholder="Enter inspection remarks"
+        ></textarea>
+
+        <small
+          class="error-message"
+          *ngIf="
+            inspectionForm.get('remarks')?.invalid &&
+            inspectionForm.get('remarks')?.touched
+          "
+        >
+          Please enter at least 5 characters.
+        </small>
+
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="submit-btn"
+      >
+        Save Inspection
+      </button>
+
+    </form>
+
+  </section>
+
+</div>
+

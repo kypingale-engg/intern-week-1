@@ -1,0 +1,237 @@
+
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <h1>Facility Inspection Dashboard</h1>
+      <p>Monitor facilities and inspection activities</p>
+    </div>
+
+    <div class="header-actions">
+      <a routerLink="/inspection-history" class="history-btn">
+        Inspection History
+      </a>
+
+      <a routerLink="/inspection-form" class="inspection-btn">
+        + New Inspection
+      </a>
+    </div>
+  </header>
+
+  <!-- Dashboard Metrics -->
+  <section class="metrics">
+
+    <div class="metric-card">
+      <h3>Total Facilities</h3>
+      <p>{{ totalFacilities }}</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Available Facilities</h3>
+      <p>{{ availableFacilities }}</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Passed Inspections</h3>
+      <p>{{ passedInspections }}</p>
+    </div>
+
+    <div class="metric-card">
+      <h3>Needs Repair</h3>
+      <p>{{ needsRepair }}</p>
+    </div>
+
+  </section>
+
+  <!-- Facilities Table -->
+  <section class="content-card">
+    <div
+  class="api-error"
+  *ngIf="facilityError"
+>
+  {{ facilityError }}
+</div>
+
+<div
+  class="api-error"
+  *ngIf="inspectionError"
+>
+  {{ inspectionError }}
+</div>
+
+    <div class="section-header">
+      <div>
+        <h2>Facilities</h2>
+        <p>Current facility status</p>
+      </div>
+
+      <div class="table-actions">
+
+        <input
+          type="text"
+          placeholder="Search facilities..."
+          [(ngModel)]="searchText"
+        />
+
+        <select
+          [value]="sortBy"
+          (change)="changeSorting($any($event.target).value)"
+        >
+          <option value="name">Sort by Name</option>
+          <option value="condition">Sort by Condition</option>
+        </select>
+
+        <button
+          type="button"
+          class="sort-order-btn"
+          (click)="sortOrder = sortOrder === 'asc' ? 'desc' : 'asc'"
+        >
+          {{ sortOrder === 'asc' ? 'Ascending ↑' : 'Descending ↓' }}
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Facility Table -->
+    <div class="table-container">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Facility</th>
+            <th>Condition</th>
+            <th>Availability</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let facility of filteredFacilities">
+
+            <td>
+              <strong>{{ facility.name }}</strong>
+              <small>{{ facility.description }}</small>
+            </td>
+
+            <td>
+              <span class="condition">
+                {{ facility.condition }}
+              </span>
+            </td>
+
+            <td>
+              <span
+                [class.available]="facility.is_available"
+                [class.unavailable]="!facility.is_available"
+              >
+                {{ facility.is_available ? 'Available' : 'Unavailable' }}
+              </span>
+            </td>
+
+            <td>
+              <button
+                type="button"
+                class="view-btn"
+                (click)="viewFacility(facility)"
+              >
+                View
+              </button>
+            </td>
+
+          </tr>
+
+          <tr *ngIf="filteredFacilities.length === 0">
+            <td colspan="4" class="no-results">
+              No facilities found.
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </section>
+
+  <!-- Facility Details Popup -->
+  <div
+    class="modal-overlay"
+    *ngIf="selectedFacility as facility"
+    (click)="closeFacilityDetails()"
+  >
+
+    <div
+      class="facility-modal"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="modal-header">
+        <div>
+          <h2>Facility Details</h2>
+          <p>Complete information about this facility</p>
+        </div>
+
+        <button
+          type="button"
+          class="modal-close"
+          aria-label="Close facility details"
+          (click)="closeFacilityDetails()"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div class="facility-details">
+
+        <div class="detail-item">
+          <span>Facility ID</span>
+          <strong>{{ facility.id }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Facility Name</span>
+          <strong>{{ facility.name }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Description</span>
+          <strong>{{ facility.description || 'Not provided' }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Condition</span>
+          <strong>{{ facility.condition }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Availability</span>
+          <strong>
+            {{ facility.is_available ? 'Available' : 'Unavailable' }}
+          </strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Department ID</span>
+          <strong>{{ facility.department_id }}</strong>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="close-details-btn"
+          (click)="closeFacilityDetails()"
+        >
+          Close
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
