@@ -1,0 +1,101 @@
+
+<div class="history-page">
+
+  <!-- Header -->
+  <header class="page-header">
+
+    <div>
+      <h1>Inspection History</h1>
+      <p>View previous facility inspection records</p>
+    </div>
+
+    <a routerLink="/" class="dashboard-btn">
+      ← Dashboard
+    </a>
+
+  </header>
+
+  <!-- History Card -->
+  <section class="history-card">
+
+    <!-- Search and Filter -->
+    <div class="history-toolbar">
+
+      <input
+        type="text"
+        placeholder="Search facility..."
+        [(ngModel)]="searchText"
+      />
+
+      <select [(ngModel)]="selectedStatus">
+
+        <option value="All">All Statuses</option>
+        <option value="Passed">Passed</option>
+        <option value="Needs Repair">Needs Repair</option>
+
+      </select>
+
+    </div>
+
+    <!-- Inspection Table -->
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Facility</th>
+            <th>Inspection Date</th>
+            <th>Status</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let inspection of filteredInspections">
+
+            <td>
+              <strong>
+                {{ getFacilityName(inspection.facility_id) }}
+              </strong>
+            </td>
+
+            <td>
+              {{ inspection.inspection_date | date:'dd MMM yyyy' }}
+            </td>
+
+            <td>
+              <span
+                [class.passed]="inspection.status === 'Passed'"
+                [class.repair]="inspection.status === 'Needs Repair'"
+              >
+                {{ inspection.status }}
+              </span>
+            </td>
+
+            <td>
+              {{ inspection.remarks }}
+            </td>
+
+          </tr>
+
+          <!-- No Results -->
+          <tr *ngIf="filteredInspections.length === 0">
+
+            <td colspan="4" class="no-results">
+              No inspection records found.
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</div>
+
